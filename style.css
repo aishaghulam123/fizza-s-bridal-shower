@@ -1,0 +1,292 @@
+/* Fiza Bridal Shower — standalone stylesheet */
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.985 0.012 45);
+  --foreground: oklch(0.185 0.01 340);
+  --paper: oklch(0.975 0.018 48);
+  --primary: oklch(0.68 0.09 4);
+  --primary-foreground: oklch(0.99 0.008 45);
+  --secondary: oklch(0.91 0.045 2);
+  --muted-foreground: oklch(0.48 0.025 350);
+  --border: oklch(0.77 0.035 7);
+  --rose-deep: oklch(0.58 0.075 4);
+  --rose-soft: oklch(0.92 0.046 3);
+}
+
+*, *::before, *::after { box-sizing: border-box; border-color: var(--border); }
+body { margin: 0; background-color: var(--background); color: var(--foreground); font-family: "DM Sans", sans-serif; }
+img { display: block; max-width: 100%; height: auto; }
+html { scroll-behavior: smooth; }
+html, body { max-width:100%; overflow-x:hidden; }
+svg { max-width:100%; }
+button, a, input, select { font: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* shared button base (replaces the UI kit button) */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 0; cursor: pointer; background: var(--primary); color: var(--primary-foreground); padding: .6rem 1.1rem; transition: opacity .25s, background .25s, color .25s; }
+.btn:hover { opacity: .9; }
+.btn-outline { background: transparent; color: var(--foreground); border: 1px solid var(--border); }
+.btn-outline:hover { background: var(--secondary); }
+.btn-ghost { background: transparent; color: inherit; }
+.btn svg { width: 16px; height: 16px; }
+
+.invitation-shell { min-height: 100vh; overflow: hidden; background-color: var(--background); color: var(--foreground); background-image: radial-gradient(color-mix(in oklab, var(--rose-deep) 8%, transparent) .7px, transparent .7px); background-size: 5px 5px; }
+.section-wrap { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+.eyebrow { font: 500 .67rem/1 "DM Sans", sans-serif; letter-spacing: .22em; }
+.script-kicker, .signature { font: italic 500 1.85rem/1.1 "Cormorant Garamond", serif; color: var(--rose-deep); }
+h1,h2,h3,p { margin: 0; }
+h1,h2,h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; }
+
+[data-reveal] { opacity: 0; transform: translateY(44px); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+[data-reveal].is-revealed { opacity: 1; transform: none; }
+
+.invitation-cover { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--rose-soft); perspective: 1400px; }
+.invitation-cover.is-hidden { display: none; }
+.invitation-cover.is-opening { animation: cover-exit 1s 1.55s cubic-bezier(.65,0,.35,1) both; }
+.cover-envelope { position: relative; width: min(660px, 88vw); height: min(720px, 80vh); background: var(--primary); box-shadow: 0 35px 90px color-mix(in oklab, var(--foreground) 22%, transparent); }
+.cover-card { position: absolute; inset: 5% 7% 10%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--paper); border: 1px solid color-mix(in oklab, var(--foreground) 25%, transparent); text-align: center; box-shadow: 0 8px 30px color-mix(in oklab, var(--foreground) 12%, transparent); }
+.is-opening .cover-card { animation: card-rise 1.05s .75s cubic-bezier(.65,0,.35,1) both; }
+.cover-card::after { content:""; position:absolute; inset:10px; border:1px solid color-mix(in oklab, var(--rose-deep) 36%, transparent); pointer-events:none; }
+.cover-script { margin: 1.1rem 0 .15rem; font: italic 1.5rem "Cormorant Garamond",serif; color: var(--rose-deep); }
+.cover-card h1 { font-size: clamp(3.7rem, 9vw, 6.6rem); line-height: .75; }
+.cover-date { margin-top: 2rem; font-size: .66rem; line-height: 2; letter-spacing: .18em; }
+.cover-date span { color: var(--rose-deep); }
+.cover-flap { position: absolute; top:0; left:0; width:100%; height:48%; transform-origin: top; background: var(--primary); clip-path: polygon(0 0,100% 0,50% 100%); filter: brightness(.95); }
+.is-opening .cover-flap { animation: flap-open 1.15s .3s cubic-bezier(.65,0,.35,1) both; }
+.cover-seal { position:absolute; z-index: 4; left:50%; top:45%; transform:translate(-50%,-50%); width:92px; height:92px; border-radius:50%; flex-direction:column; border:1px solid color-mix(in oklab, var(--paper) 60%, transparent); background:var(--rose-deep); color: var(--primary-foreground); box-shadow: 0 8px 20px color-mix(in oklab, var(--foreground) 25%, transparent), inset 0 0 0 4px color-mix(in oklab, var(--paper) 15%, transparent); }
+.is-opening .cover-seal { animation: seal-break .45s cubic-bezier(.6,-0.4,.7,.2) both; }
+.cover-seal span { font-family:"Cormorant Garamond"; font-size:1.2rem; letter-spacing:.1em; }
+.cover-seal small { font-size:.43rem; letter-spacing:.18em; }
+
+@keyframes seal-break {
+  to { transform: translate(-50%,-50%) scale(0) rotate(25deg); opacity: 0; }
+}
+@keyframes flap-open {
+  to { transform: rotateX(-170deg); }
+}
+@keyframes card-rise {
+  to { transform: translateY(-18vh) scale(1.04); }
+}
+@keyframes cover-exit {
+  to { opacity: 0; transform: translateY(-100%); }
+}
+
+.bridal-bow { position:relative; display:inline-block; width:150px; height:102px; filter:drop-shadow(0 12px 10px color-mix(in oklab,var(--foreground) 17%,transparent)); }
+.bridal-bow__loop,.bridal-bow__tail,.bridal-bow__knot { position:absolute; background:linear-gradient(125deg,var(--primary),var(--rose-soft) 48%,var(--rose-deep)); transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.bridal-bow__loop { top:7px; width:70px; height:52px; border-radius:70% 30% 62% 38%; }
+.bridal-bow__loop--left{left:4px;transform:rotate(13deg)}
+.bridal-bow__loop--right{right:4px;transform:scaleX(-1) rotate(13deg)}
+.bridal-bow__knot{z-index:2;left:61px;top:30px;width:30px;height:27px;border-radius:45%}
+.bridal-bow__tail{top:48px;width:34px;height:52px;clip-path:polygon(0 0,100% 0,75% 100%,46% 81%,16% 100%)}
+.bridal-bow__tail--left{left:45px;transform:rotate(12deg)}
+.bridal-bow__tail--right{right:44px;transform:scaleX(-1) rotate(12deg)}
+.bridal-bow--small{width:150px;height:102px;zoom:.3}
+.cover-bow{margin:1.5rem 0 -.4rem}
+.hero-bow{position:absolute;right:10%;top:15%;transform:rotate(10deg)}
+
+.hero-section{position:relative;min-height:100svh;padding:8rem 6vw 5rem;display:grid;place-items:center;background:linear-gradient(90deg,transparent 50%,var(--rose-soft) 50%)}
+.hero-section::after{content:"";position:absolute;left:50%;top:0;height:100%;border-left:1px solid color-mix(in oklab,var(--foreground) 10%,transparent)}
+.hero-rule{position:absolute;top:7rem;left:6vw;right:6vw;display:flex;justify-content:space-between;font-size:.57rem;letter-spacing:.2em}
+.hero-copy{text-align:center;max-width:820px;position:relative;z-index:2}
+.hero-copy h2{font-size:clamp(4.8rem,10vw,9.5rem);line-height:.73;margin:2rem 0}
+.hero-copy em,.itinerary-title em,.rsvp-copy em,footer em{font-weight:400;color:var(--rose-deep)}
+.intro{max-width:450px;margin:2rem auto;font:1.25rem/1.6 "Cormorant Garamond"}
+.text-link{border:0;border-bottom:1px solid;background:none;padding:.5rem 0;font-size:.62rem;letter-spacing:.18em;cursor:pointer}
+.hero-side-note{position:absolute;right:2vw;bottom:8vh;writing-mode:vertical-rl;font-size:.53rem;letter-spacing:.18em}
+.bride-section{min-height:850px;display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:8vw;padding-block:9rem}
+.bride-copy h2{font-size:clamp(5rem,9vw,8rem);line-height:.72;margin:1.5rem 0 2.5rem}
+.bride-copy>p:not(.script-kicker){font:1.2rem/1.65 "Cormorant Garamond";max-width:390px}
+.signature{display:block;margin-top:2rem}
+.portrait-stack{position:relative;max-width:590px;justify-self:end}
+.portrait-stack img{position:relative;width:82%;aspect-ratio:.73;object-fit:cover;border:1px solid var(--foreground);padding:9px;background:var(--paper)}
+.portrait-paper{position:absolute;right:0;top:-8%;width:78%;height:99%;background:var(--primary);transform:rotate(4deg)}
+.portrait-stack p{position:absolute;right:0;bottom:6%;padding:.7rem 1rem;background:var(--paper);font:italic 1.2rem "Cormorant Garamond"}
+.portrait-bow{position:absolute;z-index:4;right:14%;top:-5%}
+.details-band{padding:8rem 24px;background:var(--secondary)}
+.event-card{width:min(1080px,100%);margin:auto;min-height:570px;padding:5rem;display:grid;grid-template-columns:1fr .6fr 1fr;align-items:center;background:var(--paper);border:1px solid var(--foreground);box-shadow:14px 14px 0 var(--primary)}
+.event-heading h2{font-size:5.5rem;line-height:.72;margin-top:1rem}
+.vertical-date{height:390px;border-inline:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
+.vertical-date strong{font:500 8rem/.7 "Cormorant Garamond"}
+.vertical-date span{font-size:.58rem;letter-spacing:.2em;writing-mode:vertical-rl}
+.event-info{padding-left:4rem}
+.event-info h3{font-size:2rem;margin:2rem 0}
+.event-place{display:flex;gap:1rem;align-items:flex-start;margin-bottom:2.5rem}
+.event-place svg{width:18px}
+.event-place div{display:flex;flex-direction:column;gap:.4rem}
+.event-place strong{font:500 1.4rem "Cormorant Garamond"}
+.event-place span{font-size:.72rem;color:var(--muted-foreground)}
+.location-button{height:46px;border-color:var(--foreground);border-radius:0;text-transform:uppercase;font-size:.62rem;letter-spacing:.14em;text-decoration:none}
+.countdown-section{padding-block:9rem;text-align:center}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);margin-top:4rem}
+.countdown>div{position:relative;display:flex;flex-direction:column}
+.countdown>div:not(:last-child)::after{content:"";position:absolute;right:0;top:10%;height:70%;border-right:1px solid var(--primary)}
+.countdown strong{font:400 clamp(4rem,10vw,8.5rem)/1 "Cormorant Garamond"}
+.countdown span{text-transform:uppercase;font-size:.58rem;letter-spacing:.2em;color:var(--rose-deep)}
+.mood-section{padding:8rem 0;background:var(--foreground);color:var(--background)}
+.section-title{text-align:center;max-width:620px;margin:0 auto 5rem}
+.section-title h2{font-size:clamp(4.2rem,8vw,7rem);line-height:.85;margin:1rem 0}
+.section-title>p:last-child{font:1.15rem/1.6 "Cormorant Garamond"}
+.mood-grid{display:grid;grid-template-columns:1.25fr .45fr .85fr;align-items:center;gap:3vw}
+.mood-grid figure{position:relative;margin:0}
+.mood-grid img{width:100%;object-fit:cover}
+/* .mood-main img{aspect-ratio:.8} */
+.mood-small img{aspect-ratio:.75}
+.mood-grid figcaption{margin-top:1rem;font-size:.55rem;letter-spacing:.18em}
+.swatches{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.swatches span{aspect-ratio:1;border-radius:50%;background:var(--primary)}
+.swatches span:nth-child(2){background:var(--rose-deep)}
+.swatches span:nth-child(3){background:var(--paper)}
+.swatches span:nth-child(4){background:var(--foreground);border:1px solid var(--paper)}
+.swatches p{grid-column:1/-1;margin-top:1rem;font:italic 1rem "Cormorant Garamond";text-align:center;color:var(--primary)}
+.itinerary{padding-block:10rem;display:grid;grid-template-columns:.8fr 1fr;gap:10vw}
+.itinerary-title h2{font-size:clamp(4rem,7vw,7rem);line-height:.82;margin-top:1.5rem}
+.timeline{position:relative}
+.timeline::before{content:"";position:absolute;left:79px;top:20px;bottom:25px;border-left:1px dashed var(--rose-deep)}
+.timeline-item{display:grid;grid-template-columns:55px 48px 1fr;align-items:center;margin-bottom:3.2rem}
+.timeline-item time{font:1.1rem "Cormorant Garamond"}
+.timeline-item .bridal-bow{position:relative;z-index:2;background:var(--background)}
+.timeline-item h3{font-size:1.8rem}
+.timeline-item p{font:italic 1rem "Cormorant Garamond";color:var(--muted-foreground)}
+.gallery-section{padding:8rem 0;background:var(--rose-soft)}
+.gallery-grid{display:grid;grid-template-columns:1.2fr .8fr 1fr;grid-template-rows:330px 360px;gap:24px}
+.gallery-grid figure{position:relative;overflow:hidden;margin:0}
+.gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.gallery-grid figure:hover img{transform:scale(1.045)}
+.gallery-grid figcaption{position:absolute;inset:auto 12px 12px;display:flex;justify-content:space-between;padding:.7rem;background:color-mix(in oklab,var(--paper) 88%,transparent);font-size:.55rem;letter-spacing:.13em}
+.gallery-wide{grid-column:1/3}
+.gallery-tall{grid-column:3;grid-row:1/3}
+.gallery-detail{grid-column:2}
+.gallery-square{grid-column:1}
+.secret-section{text-align:center;padding:10rem 24px;min-height:750px}
+.secret-section h2{font-size:clamp(4rem,8vw,7rem);margin:1rem 0}
+.secret-bow{height:180px;width:220px;padding:0;background:none}
+.secret-bow .bridal-bow{transform:scale(1.35);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+.secret-bow.is-untied .bridal-bow{transform:scale(.8) rotate(8deg);opacity:.35}
+.secret-bow.is-untied .bridal-bow__loop--left{transform:translateX(-70px) rotate(-20deg)}
+.secret-bow.is-untied .bridal-bow__loop--right{transform:translateX(70px) scaleX(-1) rotate(-20deg)}
+.secret-message{opacity:0;transform:translateY(15px);font:1.7rem/1.4 "Cormorant Garamond";transition:.7s}
+.secret-message.is-visible{opacity:1;transform:none}
+.secret-message em{color:var(--rose-deep);font-size:2.2rem}
+.note-section{padding-bottom:10rem}
+.note-card{max-width:900px;margin:auto;padding:7rem 8vw;text-align:center;border:1px solid var(--foreground);background:var(--paper);box-shadow:10px 10px 0 var(--primary)}
+.note-card h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1.15;margin:2rem 0}
+.note-card>span:last-child{font-size:.58rem;letter-spacing:.2em}
+
+
+.rsvp-button { width: 100%; height: 50px; border-radius: 0; text-transform: uppercase; font-size: 0.58rem; letter-spacing: 0.2em; background: #c67f8e; color: #ffffff; border: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+.rsvp-button:hover { background: #b7707f; opacity: 1; }
+.rsvp-button svg { width: 13px; height: 13px; stroke: #ffffff; stroke-width: 1.8; fill: none; }footer{padding:9rem 24px 3rem;text-align:center;background:var(--foreground);color:var(--background)}
+footer>.bridal-bow{margin-bottom:2rem}
+footer h2{font-size:clamp(4rem,8vw,7rem);line-height:.85;margin:2rem}
+footer div{display:flex;justify-content:center;gap:2rem;margin:4rem}
+footer a{display:flex;align-items:center;gap:.5rem;color:inherit;text-transform:uppercase;font-size:.58rem;letter-spacing:.14em}
+footer a svg{width:15px}
+footer>span{font-size:.5rem;letter-spacing:.2em;color:var(--primary)}
+.custom-cursor{position:fixed;z-index:200;left:-22px;top:-22px;width:44px;height:44px;border:1px solid var(--rose-deep);border-radius:50%;display:grid;place-items:center;pointer-events:none;color:var(--rose-deep);transition:width .2s,height .2s,background .2s}
+.custom-cursor svg{width:13px;fill:currentColor}
+.custom-cursor::after{content:attr(data-label);position:absolute;top:50px;font-size:.5rem;text-transform:uppercase;letter-spacing:.12em}
+.custom-cursor.is-active{width:58px;height:58px;background:color-mix(in oklab,var(--paper) 72%,transparent)}
+
+
+.hand-note{font-family:"Caveat",cursive;font-size:1.35rem;color:var(--foreground)}
+
+/* Memory book */
+.memorybook-section{padding-block:6rem 0;background:var(--background)}
+.book-spread{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,4vw,3rem);padding:clamp(1.25rem,4vw,3.5rem);border:1px solid var(--foreground);background:var(--paper);box-shadow:0 30px 70px color-mix(in oklab,var(--foreground) 10%,transparent)}
+.book-spread::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px solid color-mix(in oklab,var(--foreground) 18%,transparent)}
+.book-page{position:relative;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1rem}
+.book-page--left h2{font-size:clamp(2.4rem,9vw,6.5rem);line-height:.85;letter-spacing:-.01em;word-break:break-word}
+.book-quote{margin-top:auto;font:italic 400 clamp(1.05rem,2.4vw,1.75rem)/1.35 "Cormorant Garamond",serif}
+.book-note{align-self:flex-end}
+.book-love{align-self:flex-end;text-align:right}
+.book-bow{align-self:flex-start}
+.polaroid{margin:0;padding:10px 10px 46px;background:var(--paper);border:1px solid color-mix(in oklab,var(--foreground) 22%,transparent);box-shadow:0 18px 40px color-mix(in oklab,var(--foreground) 16%,transparent)}
+.polaroid img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.polaroid:hover img{transform:scale(1.04)}
+.polaroid figcaption{margin-top:.7rem;text-align:center}
+.polaroid--taped{position:relative;rotate:2deg}
+.polaroid--taped::before{content:"";position:absolute;left:50%;top:-14px;translate:-50% 0;width:90px;height:24px;background:var(--foreground);opacity:.85;rotate:-4deg}
+.photo-memories{margin-top:6rem;padding:6rem 0;background:oklch(0.16 0.012 30);color:var(--paper)}
+.photo-memories .section-title{margin-bottom:3.5rem}
+.eyebrow--rose{color:var(--primary)}
+.photo-title{font-size:clamp(2.4rem,7vw,5rem);line-height:1;margin-top:1rem}
+.polaroid-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,3vw,2.5rem);align-items:start}
+.polaroid--a{rotate:-3deg}.polaroid--b{rotate:3deg;margin-top:2rem}.polaroid--c{rotate:2deg}.polaroid--d{rotate:-2deg;margin-top:1.5rem}
+
+/* Memory book flipbook */
+.flipbook{position:relative;display:flex;flex-direction:column;align-items:center;gap:1.1rem;perspective:1800px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.flipbook-stack{position:relative;width:100%;max-width:340px;margin-left:clamp(0px,4vw,34px);aspect-ratio:4/3.15;transform-style:preserve-3d;transition:opacity .35s ease}
+.flipbook.is-resetting .flipbook-stack{opacity:0}
+.flip-page{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:left center;filter:drop-shadow(0 14px 26px color-mix(in oklab,var(--foreground) 22%,transparent))}
+.flip-page.no-transition{transition:none!important}
+.flip-page.is-turning{transition:transform 1s cubic-bezier(.6,.06,.28,1);transform:rotateY(-178deg)}
+.flip-page.is-settled{transition:transform .55s cubic-bezier(.22,.85,.32,1);transform:rotateY(-178deg) translate(calc(var(--settle-index,0) * -20px), calc(var(--settle-index,0) * 12px)) rotate(calc(var(--settle-index,0) * -3.5deg)) scale(calc(1 - var(--settle-index,0) * 0.035))}
+.flip-page__face{position:absolute;inset:0;display:flex;flex-direction:column;padding:10px 10px 40px;background:var(--paper);border:1px solid color-mix(in oklab,var(--foreground) 22%,transparent);backface-visibility:hidden}
+.flip-page__face img{flex:1;width:100%;height:100%;object-fit:cover}
+.flip-page__face .hand-note{margin-top:.65rem;text-align:center;font-size:1.2rem}
+.flip-page__face--back{transform:rotateY(180deg);align-items:center;justify-content:center;background:var(--paper)}
+.flip-page__back-mark{font:italic 1.5rem "Cormorant Garamond",serif;color:var(--rose-deep);text-align:center;padding:0 1.5rem;position:relative}
+.flip-page__back-mark::before,.flip-page__back-mark::after{content:"";display:block;width:34px;height:1px;margin:.6rem auto 0;background:color-mix(in oklab,var(--rose-deep) 45%,transparent)}
+.flip-page__back-mark::before{margin:0 auto .6rem}
+.flipbook-hint{opacity:.7;font-size:1.15rem}
+.flipbook-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;max-width:220px}
+.flipbook-dots span{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .35s,transform .35s}
+.flipbook-dots span.is-active{background:var(--rose-deep);transform:scale(1.35)}
+
+/* Social */
+.social-section{padding:6rem 24px;text-align:center;background:var(--background)}
+.social-heading{font:500 .72rem/1 "DM Sans",sans-serif;letter-spacing:.28em;margin-bottom:3rem}
+.social-heading span{color:var(--rose-deep)}
+.social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,3vw,3rem);width:min(1100px,100%);margin-inline:auto}
+.social-card{position:relative;display:flex;align-items:center;gap:1.2rem;min-height:200px;padding:clamp(1.25rem,3vw,2.5rem);border:1px solid var(--foreground);background:var(--paper);color:inherit;text-decoration:none;text-align:left;transition:transform .4s ease,box-shadow .4s ease}
+.social-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px color-mix(in oklab,var(--foreground) 14%,transparent)}
+.social-card--pink{background:var(--secondary)}
+.social-card>svg{width:34px;height:34px;flex-shrink:0;stroke-width:1.4}
+.social-card div{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.social-card span{font-size:.68rem;letter-spacing:.22em}
+.social-card em{font-family:"Caveat",cursive;font-style:normal;font-size:1.6rem}
+.social-bow{position:absolute;right:-14px;top:-14px}
+.social-heart{position:absolute;right:18px;bottom:18px;width:20px;height:20px}
+
+
+@media (max-width: 900px){
+  .book-spread{grid-template-columns:1fr;gap:2rem}.book-spread::after{display:none}
+  .social-grid{grid-template-columns:1fr}
+}
+@media (max-width: 760px){
+  .custom-cursor{display:none}.section-wrap{width:min(100% - 32px,600px)}.hero-section{min-height:820px;padding:5rem 18px 4rem}.hero-copy h2{font-size:clamp(2.6rem,13vw,4.7rem)}.hero-bow{right:1%;top:9%;transform:scale(.7) rotate(10deg)}.hero-side-note{display:none}.hero-rule{top:3rem}.cover-envelope{height:74vh}.cover-card h1{font-size:clamp(2.2rem,13vw,3.65rem)}.cover-seal{top:47%}
+  .bride-section{grid-template-columns:1fr;padding-block:7rem;gap:6rem}.bride-copy{text-align:center}.bride-copy>p:not(.script-kicker){margin:auto}.portrait-stack{justify-self:center}.event-card{padding:3rem 1.5rem;grid-template-columns:1fr;text-align:center}.event-heading h2{font-size:clamp(2.6rem,12vw,4.4rem)}.vertical-date{height:auto;margin:3rem 0;padding:2rem 0;border-inline:0;border-block:1px solid var(--border);flex-direction:row;flex-wrap:wrap;gap:1rem}.vertical-date strong{font-size:clamp(3.4rem,18vw,6rem)}.vertical-date span{writing-mode:initial}.event-info{padding:0}.event-place{justify-content:center;text-align:left}.countdown-section{padding-block:6rem}.countdown{grid-template-columns:1fr 1fr;gap:2rem 0}.countdown>div:nth-child(2)::after{display:none}.countdown strong{font-size:clamp(2.4rem,15vw,3.6rem)}.mood-grid{grid-template-columns:1fr 1fr}.mood-main{grid-column:1/3}.swatches{order:3}.itinerary{grid-template-columns:1fr;padding-block:7rem}.itinerary-title{text-align:center}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 300px 260px}.gallery-wide{grid-column:1/3}.gallery-tall{grid-column:1;grid-row:2/4}.gallery-square{grid-column:2}.gallery-detail{grid-column:2}.note-card{padding:4rem 1.5rem}.rsvp-section{grid-template-columns:1fr}.rsvp-copy{text-align:center;padding:5rem 20px}.rsvp-form{margin-block:4rem;padding:2.5rem 1.25rem}
+  .photo-memories{padding:4rem 0}.polaroid--b,.polaroid--d{margin-top:0}.secret-section{padding:6rem 18px;min-height:0}.details-band{padding:5rem 16px}
+  .portrait-stack{width:100%;max-width:420px;overflow:hidden;padding:6px}.portrait-paper{right:6%;top:-4%;width:70%;height:96%;transform:rotate(2deg)}.portrait-stack img{width:90%}.portrait-stack p{right:2%;font-size:1rem;padding:.5rem .7rem}.portrait-bow{right:18%}
+}
+@media (max-width: 520px){
+  .section-wrap{width:calc(100% - 24px)}
+  .polaroid-grid,.gallery-grid,.mood-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .gallery-grid figure{grid-column:1!important;grid-row:auto!important;height:250px}
+  .mood-main{grid-column:1}
+  .polaroid{rotate:0deg!important}
+  .timeline::before{left:22px}.timeline-item{grid-template-columns:44px 1fr;gap:.5rem 0;align-items:start}.timeline-item .bridal-bow{display:none}.timeline-item h3{font-size:1.35rem}
+  .social-card{flex-direction:column;align-items:flex-start;gap:.9rem;min-height:0}
+  .secret-bow{width:100%;max-width:180px;height:130px}.secret-section h2{font-size:clamp(2.2rem,13vw,4rem)}.secret-message{font-size:1.15rem}.secret-message em{font-size:1.45rem}
+  footer{padding:5rem 16px 2.5rem}footer h2{margin:1.5rem 0;font-size:clamp(2.4rem,14vw,4rem)}
+  .book-page--left h2{font-size:clamp(2rem,14vw,3.4rem)}
+  .cover-envelope{width:calc(100% - 24px)}
+  .confirmation h3{font-size:2rem}
+}
+@media (max-width: 360px){
+  .portrait-stack{overflow:hidden}.portrait-paper{right:8%;width:64%;transform:rotate(2deg)}
+  .section-wrap{width:calc(100% - 16px)}
+  .hero-section,.social-section,.mood-section,.gallery-section{padding-inline:10px}
+  .eyebrow{font-size:.58rem;letter-spacing:.14em}
+  .script-kicker,.signature{font-size:1.4rem}
+  .cover-card{inset:4% 4% 8%}.cover-date{font-size:.55rem;letter-spacing:.1em}
+  .rsvp-form{padding:1.75rem 1rem}.choice span{font-size:.95rem;padding:.8rem}
+  .event-card{padding:2rem 1rem}.book-spread{padding:1rem}
+  .social-heading{letter-spacing:.16em;font-size:.62rem}
+  .polaroid{padding:8px 8px 38px}.polaroid figcaption,.hand-note{font-size:1.1rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none}}
