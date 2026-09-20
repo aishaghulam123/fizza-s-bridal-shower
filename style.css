@@ -83,7 +83,7 @@ h1,h2,h3 { font-family: "Cormorant Garamond", serif; font-weight: 500; }
 .bridal-bow__tail--right{right:44px;transform:scaleX(-1) rotate(12deg)}
 .bridal-bow--small{width:150px;height:102px;zoom:.3}
 .cover-bow{margin:1.5rem 0 -.4rem}
-.hero-bow{position:absolute;right:10%;top:15%;transform:rotate(10deg)}
+.hero-bow{position:static;display:inline-block;vertical-align:middle;margin-left:.6rem;transform:scale(.65) rotate(10deg)}
 
 .hero-section{position:relative;min-height:100svh;padding:8rem 6vw 5rem;display:grid;place-items:center;background:linear-gradient(90deg,transparent 50%,var(--rose-soft) 50%)}
 .hero-section::after{content:"";position:absolute;left:50%;top:0;height:100%;border-left:1px solid color-mix(in oklab,var(--foreground) 10%,transparent)}
@@ -255,7 +255,7 @@ footer>span{font-size:.5rem;letter-spacing:.2em;color:var(--primary)}
   .social-grid{grid-template-columns:1fr}
 }
 @media (max-width: 760px){
-  .custom-cursor{display:none}.section-wrap{width:min(100% - 32px,600px)}.hero-section{min-height:820px;padding:5rem 18px 4rem}.hero-copy h2{font-size:clamp(2.6rem,13vw,4.7rem)}.hero-bow{right:1%;top:9%;transform:scale(.7) rotate(10deg)}.hero-side-note{display:none}.hero-rule{top:3rem}.cover-envelope{height:74vh}.cover-card h1{font-size:clamp(2.2rem,13vw,3.65rem)}.cover-seal{top:47%}
+  .custom-cursor{display:none}.section-wrap{width:min(100% - 32px,600px)}.hero-section{min-height:820px;padding:5rem 18px 4rem}.hero-copy h2{font-size:clamp(2.6rem,13vw,4.7rem)}.hero-bow{transform:scale(.5) rotate(10deg);margin-left:.3rem}.hero-side-note{display:none}.hero-rule{top:3rem}.cover-envelope{height:74vh}.cover-card h1{font-size:clamp(2.2rem,13vw,3.65rem)}.cover-seal{top:47%}
   .bride-section{grid-template-columns:1fr;padding-block:7rem;gap:6rem}.bride-copy{text-align:center}.bride-copy>p:not(.script-kicker){margin:auto}.portrait-stack{justify-self:center}.event-card{padding:3rem 1.5rem;grid-template-columns:1fr;text-align:center}.event-heading h2{font-size:clamp(2.6rem,12vw,4.4rem)}.vertical-date{height:auto;margin:3rem 0;padding:2rem 0;border-inline:0;border-block:1px solid var(--border);flex-direction:row;flex-wrap:wrap;gap:1rem}.vertical-date strong{font-size:clamp(3.4rem,18vw,6rem)}.vertical-date span{writing-mode:initial}.event-info{padding:0}.event-place{justify-content:center;text-align:left}.countdown-section{padding-block:6rem}.countdown{grid-template-columns:1fr 1fr;gap:2rem 0}.countdown>div:nth-child(2)::after{display:none}.countdown strong{font-size:clamp(2.4rem,15vw,3.6rem)}.mood-grid{grid-template-columns:1fr 1fr}.mood-main{grid-column:1/3}.swatches{order:3}.itinerary{grid-template-columns:1fr;padding-block:7rem}.itinerary-title{text-align:center}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 300px 260px}.gallery-wide{grid-column:1/3}.gallery-tall{grid-column:1;grid-row:2/4}.gallery-square{grid-column:2}.gallery-detail{grid-column:2}.note-card{padding:4rem 1.5rem}.rsvp-section{grid-template-columns:1fr}.rsvp-copy{text-align:center;padding:5rem 20px}.rsvp-form{margin-block:4rem;padding:2.5rem 1.25rem}
   .photo-memories{padding:4rem 0}.polaroid--b,.polaroid--d{margin-top:0}.secret-section{padding:6rem 18px;min-height:0}.details-band{padding:5rem 16px}
   .portrait-stack{width:100%;max-width:420px;overflow:hidden;padding:6px}.portrait-paper{right:6%;top:-4%;width:70%;height:96%;transform:rotate(2deg)}.portrait-stack img{width:90%}.portrait-stack p{right:2%;font-size:1rem;padding:.5rem .7rem}.portrait-bow{right:18%}

@@ -92,7 +92,7 @@ secretBow?.addEventListener("click", () => {
   secretBow.classList.add("is-untied");
   document.getElementById("secretMessage")?.classList.add("is-visible");
   const heading = document.getElementById("secretHeading");
-  if (heading) heading.textContent = "Just for Fizza";
+  if (heading) heading.textContent = "Just for you";
 });
 
 
