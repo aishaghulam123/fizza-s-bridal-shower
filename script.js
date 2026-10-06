@@ -113,7 +113,7 @@ if (flipbook) {
       pages[pageIndex].style.zIndex = String(200 + (waitingOrder.length - stackPos));
     });
     settledOrder.forEach((pageIndex, settledPos) => {
-      pages[pageIndex].style.zIndex = String(10 + settledPos);
+      pages[pageIndex].style.zIndex = String(13 + settledPos);
     });
   }
   function updateDots() {
